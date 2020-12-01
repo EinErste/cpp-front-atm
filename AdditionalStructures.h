@@ -44,6 +44,7 @@ struct Transaction
     std::string to;
     std::string date;
     std::string amount;
+    std::string comment;
 };
 
 #endif /* AdditionalStructures_h */

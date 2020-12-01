@@ -88,7 +88,8 @@ Response<> AccountRepository::transfer(const Account* acc, const std::string des
         {"card_num", destCardNum},
         {"amount", amount},
         {"card_id", acc->_card_id},
-        {"transaction_date", json_date}
+        {"transaction_date", json_date},
+        {"comment", "Transfer to card"}
     };
     std::string requestBody = jBody.dump(4);
 #ifndef NDEBUG
@@ -132,22 +133,25 @@ Response<> AccountRepository::transfer(const Account* acc, const std::string des
     }
 }
 
-Response<> AccountRepository::withdraw(const Account* acc, const int amount)
+Response<> AccountRepository::transferPhone(const Account* acc, const std::string comment, const int amount)
 {
     cli.set_bearer_token_auth(acc->_token.c_str());
     time_t date = std::time(0);
     std::string json_date = toJSONtime(date);
     json jBody = {
-        {"card_num", "0000000000000001"},
+        {"card_num", "2221009198076721"},
         {"amount", amount},
         {"card_id", acc->_card_id},
-        {"transaction_date", json_date}
+        {"transaction_date", json_date},
+        {"comment", comment}
     };
     std::string requestBody = jBody.dump(4);
+#ifndef NDEBUG
+    std::cout << requestBody << std::endl;
+#endif
     if (auto res = cli.Post("/transactions-api/transaction", requestBody, "application/json")) {
 #ifndef NDEBUG
         std::cout << "Request Successful" << std::endl;
-        std::cout << requestBody << std::endl;
 #endif
         if (res->status == 200) {
             std::string body = res->body;
@@ -164,6 +168,47 @@ Response<> AccountRepository::withdraw(const Account* acc, const int amount)
                 "transaction_date": "2020-04-23T18:25:43.511Z"
             }
             */
+            return Response<>{ 0, date, "Transfer Successful", "NULL", Nothing{}};
+        }
+        else if (res->status == 401) {
+            // throw errror
+#ifndef NDEBUG
+            std::cout << "Unauthorized" << std::endl;
+#endif
+            return Response<>{ 401, date, "Transfer Failed, Unauthorized", "NULL", Nothing{}};
+        }
+        else {
+            return Response<>{ 1, date, "Transfer Failed", "NULL", Nothing{}};
+        }
+    }
+    else {
+        auto err = res.error();
+        return Response<>{ 1, date, "Transfer Failed", "NULL", Nothing{}};
+    }
+}
+
+
+Response<> AccountRepository::withdraw(const Account* acc, const int amount)
+{
+    cli.set_bearer_token_auth(acc->_token.c_str());
+    time_t date = std::time(0);
+    std::string json_date = toJSONtime(date);
+    json jBody = {
+        {"card_num", "2221009198076721"},
+        {"comment", "Withdraw"},
+        {"amount", amount},
+        {"card_id", acc->_card_id},
+        {"transaction_date", json_date}
+    };
+    std::string requestBody = jBody.dump(4);
+    if (auto res = cli.Post("/transactions-api/transaction", requestBody, "application/json")) {
+#ifndef NDEBUG
+        std::cout << "Request Successful" << std::endl;
+        std::cout << requestBody << std::endl;
+#endif
+        if (res->status == 200) {
+            std::string body = res->body;
+            json j = json::parse(body);
             return Response<>{ 0, date, "Transfer Successful", "NULL", Nothing{}};
         }
         else if (res->status == 401) {
@@ -188,7 +233,8 @@ Response<> AccountRepository::refill(const Account* acc, const int amount)
     time_t date = std::time(0);
     std::string json_date = toJSONtime(date);
     json jBody = {
-        {"card_num", "0000000000000001"},
+        {"card_num", "2221009198076721"},
+        {"comment", "Refill"},
         {"amount", amount},
         {"card_id", acc->_card_id},
         {"transaction_date", json_date}
@@ -292,9 +338,10 @@ Response<std::vector<Transaction>> AccountRepository::getHistory(const Account* 
             auto const transactions = j.find("transactions");
             for (auto const& transaction : *transactions) {
                 std::string to = transaction["card_num"].get<std::string>();
+                std::string comment = transaction["comment"].get<std::string>();
                 const double amount = transaction["amount"].get<double>();
                 std::string date = transaction["CreatedAt"].get<std::string>();
-                const Transaction tr{ to, date, std::to_string(amount) };
+                const Transaction tr{ to, date, std::to_string(amount), comment };
                 transactionsV.push_back(tr);
             }
             return Response<std::vector<Transaction>>{ 0, date, "Fetch Successful", "Balance yet unknown", transactionsV};

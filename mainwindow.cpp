@@ -249,7 +249,7 @@ void MainWindow::show_balance_widget()
     ui->label_balance_number->setText(QString::fromStdString(balance.substr(0, balance.find(".")+3)) +"₴");
     auto h = atm.getHistory();
     for(auto it = h.obj.begin();it!=h.obj.end();++it)
-        ui->textBrowser_history->append(QString::fromStdString(it->date) + " " + QString::fromStdString(it->amount) + " " + QString::fromStdString(it->to));
+        ui->textBrowser_history->append(QString::fromStdString(it->date) + " " + QString::fromStdString(it->amount) + " " + QString::fromStdString(it->comment));
 }
 //Withdraw
 void MainWindow::show_withdrawal_widget()

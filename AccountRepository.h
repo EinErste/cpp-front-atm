@@ -20,6 +20,7 @@ public:
     AccountRepository(std::string login, std::string password);
     Response<Account> login(const std::string cardNum, const std::string pin);
     Response<> transfer(const Account* acc, const std::string destCardNum, const int amount);
+    Response<> transferPhone(const Account* acc, const std::string comment, const int amount);
     Response<> withdraw(const Account* acc, const int amount);
     Response<> refill(const Account* acc, const int amount);
     Response<> changeDetails(const Account* acc, const Details d);

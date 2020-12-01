@@ -32,6 +32,7 @@ public:
     ~ATM();
     Response<> login(std::string cardNumber, std::string pin);
     Response<> transfer(std::string dest, int amount);
+    Response<> transferPhone(std::string dest, int amount);
     Response<> changePIN(std::string newPin);
     Response<std::vector<Transaction>> getHistory();
     Response<> closeAccount(std::string reason);

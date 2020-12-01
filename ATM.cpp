@@ -32,6 +32,18 @@ Response<> ATM::transfer(std::string dest, int amount)
         _cash += amount;
     return r;
 }
+Response<> ATM::transferPhone(std::string dest, int amount)
+{
+    if(!_acc)
+        return Response<>{1, std::time(0), "ACCOUNT was not initialized(need to login)", "NULL", Nothing()};
+    auto it = additionalServices.find(dest);
+    if (it != additionalServices.end()) dest = it->second;
+    std::string comment = "PHONE: " + dest;
+    Response<> r = _ar.transferPhone(_acc, comment, amount);
+    if(r.exitCode == 0)
+        _cash += amount;
+    return r;
+}
 Response<> ATM::changePIN(std::string newPin)
 {
     if(!_acc)
