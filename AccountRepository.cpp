@@ -14,7 +14,9 @@ std::string toJSONtime(const time_t& now)
 {
     std::stringstream ss;
     tm *gmtm = localtime(&now);
-    ss<<""<<"2020"<<"-"<<gmtm->tm_mon<<"-"<<gmtm->tm_mday<<"T"<<gmtm->tm_hour<<":"<<gmtm->tm_min<<":"<<gmtm->tm_sec<<".0000000Z";
+    std::string day = gmtm->tm_mday < 10 ? "0"+std::to_string(gmtm->tm_mday) : std::to_string(gmtm->tm_mday);
+    std::string mon = gmtm->tm_mon < 10 ? "0"+std::to_string(gmtm->tm_mon) : std::to_string(gmtm->tm_mon);
+    ss<<""<<"2020"<<"-"<<mon<<"-"<<day<<"T"<<gmtm->tm_hour<<":"<<gmtm->tm_min<<":"<<gmtm->tm_sec<<".0000000Z";
     std::string res;
     ss>>res;
     return res;
