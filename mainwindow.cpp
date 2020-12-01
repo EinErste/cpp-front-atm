@@ -212,8 +212,9 @@ void MainWindow::accept_transfer()
                     ui->lineEdit_transfer_card->setText("");
                     ui->lineEdit_transfer_amount->setText("");
                     amount_ = 0;
+                    show_menu_widget();
                 } else{
-
+                    QMessageBox::warning(this,QString("Error"),QString::fromStdString(resp.description));
                 }
             }
         } else{
@@ -246,10 +247,10 @@ void MainWindow::show_balance_widget()
     clear_bindings();
     ui->stackedWidget->setCurrentIndex(3);
     connect(ui->pushButton_cancel, SIGNAL(clicked()), this, SLOT(show_menu_widget()));
-    ui->label_balance_number->setText(QString::fromStdString(balance));
+    ui->label_balance_number->setText(QString::fromStdString(balance.substr(0, balance.find(".")+3)) +"₴");
     auto h = atm.getHistory();
     for(auto it = h.obj.begin();it!=h.obj.end();++it)
-        ui->textBrowser_history->append(QString::fromStdString(it->date) + " " + card_name_ + " " + QString::fromStdString(it->amount) + " " + QString::fromStdString(it->to));
+        ui->textBrowser_history->append(QString::fromStdString(it->date) + " " + QString::fromStdString(it->amount) + " " + QString::fromStdString(it->to));
 }
 //Withdraw
 void MainWindow::show_withdrawal_widget()
@@ -332,6 +333,7 @@ void MainWindow::withdraw()
                     } catch (...) {}
                     ui->label_take_cash->setText(std::to_string(old_amount+amount_).c_str());
                     QMessageBox::information(this,QString("Information"),(std::string("You have widthdrawn ") + std::to_string(amount_)).c_str());
+                    show_menu_widget();
                 } else{
                     QMessageBox::warning(this,QString("Error"),QString::fromStdString(resp.description));
                 }
@@ -361,7 +363,6 @@ void MainWindow::on_pushButton_insert_cash_clicked()
     if ( ui->lineEdit_insert_cash->text()=="") return;
     try {
         size_t amount = stoui(ui->lineEdit_insert_cash->text().toStdString());
-        //kostil?
         if (amount % min_banknote_ != 0) throw "";
 
         menu_avaible_ = false;
@@ -382,13 +383,12 @@ void MainWindow::accept_deposit()
                                                       tr("Depositing"),
                                                       tr("Are you sure you want to finish depositing?")))
         {
-            QMessageBox::information(this,QString("Information"),QString("WAS deposited"));
+            QMessageBox::information(this,QString("Information"), amount_ + QString("uah was deposited"));
             menu_avaible_ = true;
             ui->label_deposited_cash->setText("0");
-            //DEPOSIT TO CARD HERE
             atm.refill(amount_);
-
             amount_ = 0;
+            show_menu_widget();
         }
     } else {
         QMessageBox::information(this,QString("Information"),QString("Deposit your cash"));
@@ -443,9 +443,9 @@ void MainWindow::accept_phone_refill()
                 ui->lineEdit_phone_number->setText("");
                 ui->lineEdit_phone_amount->setText("");
                 amount_ = 0;
+                show_menu_widget();
             } else{
-                //SHOW INSUF BALANCE
-                QMessageBox::warning(this,QString("Warning"),QString("Insufficient balance"));
+                QMessageBox::warning(this,QString("Error"),QString::fromStdString(resp.description));
             }
 
         }
@@ -490,8 +490,6 @@ void MainWindow::accept_settings_change()
             QMessageBox::information(this,QString("Information"),QString("Pin was changed"));
 
             atm.changePIN(pin.toStdString());
-
-
             show_menu_widget();
         }
     } else {

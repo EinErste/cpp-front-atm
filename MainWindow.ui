@@ -32,7 +32,10 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QMainWindow#MainWindow{
+	background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 #bcbcbc, stop:1 #848484);
+
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -455,7 +458,7 @@ QLabel#label_7,QLabel#label_8, QLabel#label_9,QLabel#label_10,QLabel#label_11, Q
 font: 24pt &quot;Calibri&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>7</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QGridLayout" name="gridLayout_10">
@@ -965,7 +968,7 @@ color:black;
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>40</height>
+                <height>70</height>
                </size>
               </property>
              </spacer>
@@ -1053,23 +1056,7 @@ color:black;
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_7">
-            <item row="2" column="0">
-             <spacer name="horizontalSpacer_7">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>80</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="4" column="1">
+            <item row="5" column="1">
              <widget class="QLabel" name="label_15">
               <property name="font">
                <font>
@@ -1090,34 +1077,7 @@ color:black;
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>655</width>
-                <height>13</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="6" column="1">
-             <widget class="QTextBrowser" name="textBrowser_history">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="html">
-               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
+            <item row="3" column="2">
              <spacer name="horizontalSpacer_5">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1133,8 +1093,97 @@ p, li { white-space: pre-wrap; }
               </property>
              </spacer>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="0">
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>80</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="3" column="1">
              <widget class="QLabel" name="label_balance_number">
+              <property name="font">
+               <font>
+                <family>Calibri</family>
+                <pointsize>24</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.0, fx:0.5, fy:0.5, stop:0 rgba(0, 184, 157, 255), stop:1 rgba(0, 120, 103, 255));
+border-radius: 15px;
+color:white;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" colspan="3">
+             <widget class="QTextBrowser" name="textBrowser_history">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="font">
+               <font>
+                <family>Calibri</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="autoFormatting">
+               <set>QTextEdit::AutoBulletList</set>
+              </property>
+              <property name="lineWrapMode">
+               <enum>QTextEdit::NoWrap</enum>
+              </property>
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <spacer name="verticalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="1">
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>655</width>
+                <height>13</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="label_36">
               <property name="font">
                <font>
                 <family>Calibri</family>
@@ -1147,25 +1196,12 @@ border-radius: 15px;
 color:white;</string>
               </property>
               <property name="text">
-               <string>Balance: </string>
+               <string>Balance</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item row="3" column="1">
-             <spacer name="verticalSpacer_8">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </item>
@@ -1883,7 +1919,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1895,6 +1931,9 @@ color:white;</string>
               <property name="text">
                <string/>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
              </widget>
             </item>
             <item row="3" column="1">
@@ -1902,7 +1941,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1912,7 +1951,7 @@ border-bottom-left-radius: 15px;
 color:white;</string>
               </property>
               <property name="text">
-               <string> Name:</string>
+               <string> Name and surname:</string>
               </property>
              </widget>
             </item>
@@ -1937,7 +1976,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1947,7 +1986,7 @@ border-bottom-left-radius: 15px;
 color:white;</string>
               </property>
               <property name="text">
-               <string> Surname: </string>
+               <string>Email: </string>
               </property>
              </widget>
             </item>
@@ -1956,7 +1995,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1996,7 +2035,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -2008,6 +2047,9 @@ color:white;</string>
               <property name="text">
                <string/>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
              </widget>
             </item>
             <item row="2" column="2">
@@ -2015,7 +2057,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -2025,7 +2067,10 @@ border-bottom-right-radius: 15px;
 color:white;</string>
               </property>
               <property name="text">
-               <string>1234123412341234</string>
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -2034,7 +2079,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -2069,7 +2114,7 @@ color:white;</string>
               <property name="font">
                <font>
                 <family>Calibri</family>
-                <pointsize>24</pointsize>
+                <pointsize>18</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -2080,6 +2125,9 @@ color:white;</string>
               </property>
               <property name="text">
                <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
