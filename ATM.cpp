@@ -83,7 +83,7 @@ Response<> ATM::withdraw(const int amount)
     if(!_acc)
         return Response<>{1, std::time(0),"ACCOUNT was not initialized(need to login)","NULL", Nothing()};
     if(_cash<amount)
-        return Response<>{1, std::time(0), "Not enought money in ATM", _ar.getBalance(_acc).obj, Nothing()};
+        return Response<>{1, std::time(0), "Not enough money in ATM", _ar.getBalance(_acc).obj, Nothing()};
     Response<> r = _ar.withdraw(_acc, amount);
     if(r.exitCode == 0)
         _cash -= amount;
@@ -96,17 +96,17 @@ Response<> ATM_admin::logIntoATM(ATM* atm, std::string login, std::string passwo
     if(login==_login && password==_password)
     {
         _atm = atm;
-        return Response<>{0, std::time(0), "login successed, access into ATM complited", showCash().balance, Nothing()};
+        return Response<>{0, std::time(0), "Admin ATM access granted", showCash().balance, Nothing()};
     }
     _atm = nullptr;
-    return Response<>{2, std::time(0), "login unsuccessed, access into ATM denied", "NULL", Nothing()};
+    return Response<>{2, std::time(0), "Admin ATM access denied", "NULL", Nothing()};
 }
 Response<> ATM_admin::refillATM(const int amount)
 {
     if(_atm)
     {
         _atm->_cash+=amount;
-        return Response<>{0, std::time(0), "ATM was refilled by amount" + std::to_string(amount),  showCash().balance,  Nothing()};
+        return Response<>{0, std::time(0), "ATM was refilled by amount " + std::to_string(amount),  showCash().balance,  Nothing()};
     }
     return Response<>{1, std::time(0),"ATM was not initialized(need to login)", "NULL", Nothing()};;
 }
@@ -117,9 +117,9 @@ Response<> ATM_admin::withdraw(const int amount)
         if(_atm&&amount<_atm->_cash)
         {
             _atm->_cash-=amount;
-            return Response<>{ 0,  std::time(0), "ATM was withdrawed by amount" + std::to_string(amount), showCash().balance, Nothing()};
+            return Response<>{ 0,  std::time(0), "Cash was withdrawn by amount " + std::to_string(amount), showCash().balance, Nothing()};
         }
-        return Response<>{3,  std::time(0), "ATM wasn`t withdrawed, not enought money", showCash().balance, Nothing()};
+        return Response<>{3,  std::time(0), "Cash wasn`t withdrawn, not enough money ", showCash().balance, Nothing()};
     }
     return Response<>{1,  std::time(0),  "ATM was not initialized(need to login)", "NULL", Nothing()};
 }

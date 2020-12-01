@@ -405,7 +405,7 @@ Response<std::string> AccountRepository::getBalance(const Account* acc)
             return res;
         }
         else if (res->status == 401) {
-            // throw errror
+            // throw error
 #ifndef NDEBUG
             std::cout << "Unauthorized" << std::endl;
             time_t date = std::time(0);

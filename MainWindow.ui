@@ -69,11 +69,8 @@ QPushButton#pushButton_5,
 QPushButton#pushButton_6,
 QPushButton#pushButton_7,
 QPushButton#pushButton_8{
-	
-	
 	background-color: qlineargradient(spread:reflect, x1:0, y1:1, x2:0, y2:0, stop:0 #545454, stop:1 #cdcdcd);
 }
-
 QPushButton#pushButton_1:checked, 
 QPushButton#pushButton_2:checked,
 QPushButton#pushButton_3:checked,
@@ -82,10 +79,9 @@ QPushButton#pushButton_5:checked,
 QPushButton#pushButton_6:checked,
 QPushButton#pushButton_7:checked,
 QPushButton#pushButton_8:checked{
-	background-color: qlineargradient(spread:reflect, x1:0, y1:1, x2:0, y2:0, stop:0 #545454, stop:1 #cdcdcd);
-	border: 5px inset rgba(0, 120, 103, 255);
-}
-</string>
+  background-color: qlineargradient(spread:reflect, x1:0, y1:1, x2:0, y2:0, stop:0 #545454, stop:1 #cdcdcd);
+  border: 5px inset rgba(0, 120, 103, 255);
+}</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="2" column="0">
@@ -458,7 +454,7 @@ QLabel#label_7,QLabel#label_8, QLabel#label_9,QLabel#label_10,QLabel#label_11, Q
 font: 24pt &quot;Calibri&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>7</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QGridLayout" name="gridLayout_10">

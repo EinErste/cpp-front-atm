@@ -13,8 +13,8 @@
 #include "AdminWindow.h"
 const size_t MainWindow::min_banknote_ = 50;
 MainWindow::MainWindow(QWidget *parent) :
-    atm(1, "log", "pass"),
     QMainWindow(parent),
+    atm(1, "log", "pass"),
     ui(new Ui::MainWindow),
     focus_line_(nullptr),
     timer_(new QTimer()),
@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setFixedSize(size());
     show_login_widget();
-
 }
 
 MainWindow::~MainWindow()
@@ -232,7 +231,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key()==Qt::Key_Escape){
         this->hide();
-        QMainWindow* admin = new AdminWindow(this);
+        QMainWindow* admin = new AdminWindow(this,&atm);
         admin->show();
     }
 
@@ -383,7 +382,7 @@ void MainWindow::accept_deposit()
                                                       tr("Depositing"),
                                                       tr("Are you sure you want to finish depositing?")))
         {
-            QMessageBox::information(this,QString("Information"), amount_ + QString("uah was deposited"));
+            QMessageBox::information(this,QString("Information"), QString::fromStdString(std::to_string(amount_)) + QString("uah was deposited"));
             menu_avaible_ = true;
             ui->label_deposited_cash->setText("0");
             atm.refill(amount_);
@@ -646,3 +645,5 @@ void MainWindow::on_lineEdit_transfer_card_textChanged(const QString &str)
     if (s.length()>16) s.pop_back();
     ui->lineEdit_transfer_card->setText(tr(s.c_str()));
 }
+
+
