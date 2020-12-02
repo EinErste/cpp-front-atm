@@ -17,32 +17,30 @@ win32:LIBS += -lWS2_32
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ATM.cpp \
-    AccountRepository.cpp \
-    AdminWindow.cpp \
-    MainWindow.cpp \
-    main.cpp
+    middleware/ATM.cpp \
+    middleware/AccountRepository.cpp \
+    ui/AdminWindow.cpp \
+    ui/MainWindow.cpp \
+    ui/main.cpp
 
 HEADERS += \
-    ATM.h \
-    AccountRepository.h \
-    AdditionalStructures.h \
-    AdminWindow.h \
-    MainWindow.h \
-    httplib.h \
-    json.hpp
+    middleware/ATM.h \
+    middleware/AccountRepository.h \
+    middleware/AdditionalStructures.h \
+    ui/AdminWindow.h \
+    ui/MainWindow.h \
+    middleware/httplib.h \
+    middleware/json.hpp
 
 FORMS += \
-    AdminWindow.ui \
-    MainWindow.ui
+    ui/AdminWindow.ui \
+    ui/MainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    mystyle.qss
 
 RESOURCES += \
-    Assets.qrc
+    ui/Assets.qrc

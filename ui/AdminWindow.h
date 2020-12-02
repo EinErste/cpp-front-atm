@@ -7,7 +7,7 @@
 #define ADMINWINDOW_H
 
 #include <QMainWindow>
-#include "ATM.h"
+#include "middleware/ATM.h"
 
 namespace Ui {
 class AdminWindow;
