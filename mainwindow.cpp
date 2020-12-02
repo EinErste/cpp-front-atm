@@ -1,3 +1,8 @@
+//
+//  MOOP_ATM
+//
+//  Created by Shchebyna Serhii 10.2020-12.2020.
+//
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "QInputDialog"
@@ -11,6 +16,7 @@
 #include "QTime"
 #include "QKeyEvent"
 #include "AdminWindow.h"
+#include <vector>
 const size_t MainWindow::min_banknote_ = 50;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -43,6 +49,7 @@ void MainWindow::update_clock()
     QTime time = QTime::currentTime();
     QString time_text = time.toString("hh : mm : ss   ");
     ui->label_time->setText(time_text);
+    ui;
 }
 
 
@@ -185,11 +192,15 @@ void MainWindow::show_transfer_widget()
 void MainWindow::set_tranfser_card()
 {
     focus_line_ = ui->lineEdit_transfer_card;
+    ui->pushButton_3->setChecked(true);
+    ui->pushButton_4->setChecked(true);
 }
 
 void MainWindow::set_transfer_amount()
 {
     focus_line_ = ui->lineEdit_transfer_amount;
+    ui->pushButton_5->setChecked(true);
+    ui->pushButton_6->setChecked(true);
 }
 
 void MainWindow::accept_transfer()
@@ -240,17 +251,34 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //Balance
 void MainWindow::show_balance_widget()
 {
-    ui->textBrowser_history->setText("");
+
+    QAbstractItemModel* const mdl = ui->tableWidget_history->model();
+    mdl->removeRows(0,mdl->rowCount());
     auto resp = atm.getDetails();
     std::string balance = resp.balance;
     clear_bindings();
     ui->stackedWidget->setCurrentIndex(3);
     connect(ui->pushButton_cancel, SIGNAL(clicked()), this, SLOT(show_menu_widget()));
-    ui->label_balance_number->setText(QString::fromStdString(balance.substr(0, balance.find(".")+3)) +"₴");
+    ui->label_balance_number->setText(QString::fromStdString("Balance: " + balance.substr(0, balance.find(".")+3)) +"₴");
+
     auto h = atm.getHistory();
-    for(auto it = h.obj.begin();it!=h.obj.end();++it)
-        ui->textBrowser_history->append(QString::fromStdString(it->date) + " " + QString::fromStdString(it->amount) + " " + QString::fromStdString(it->comment));
+    size_t index = 0;
+    for(auto it = h.obj.begin() ;it!=h.obj.end();++it, ++index){
+        ui->tableWidget_history->insertRow(index);
+        std::regex regex{R"(T)"};
+        std::sregex_token_iterator str_iter{it->date.begin(), it->date.end(), regex, -1};
+        std::vector<std::string> time_date{str_iter, {}};
+        ui->tableWidget_history->setItem(index,0, new QTableWidgetItem(QString::fromStdString(time_date[0])));
+        ui->tableWidget_history->setItem(index,1, new QTableWidgetItem(QString::fromStdString(time_date[1].substr(0,8))));
+        ui->tableWidget_history->setItem(index,2, new QTableWidgetItem(QString::fromStdString(it->comment)));
+        ui->tableWidget_history->setItem(index,3, new QTableWidgetItem(QString::fromStdString(it->amount.substr(0, it->amount.find(".")+3)) +"₴"));
+        ui->tableWidget_history->setItem(index,4, new QTableWidgetItem(QString::fromStdString(it->to)));
+    }
+
+    ui;
 }
+
+
 //Withdraw
 void MainWindow::show_withdrawal_widget()
 {
@@ -270,43 +298,50 @@ void MainWindow::show_withdrawal_widget()
     connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(set_any_amount_withdrawal()));
     connect(ui->pushButton_cancel, SIGNAL(clicked()), this, SLOT(show_menu_widget()));
     connect(ui->pushButton_accept, SIGNAL(clicked()), this, SLOT(withdraw()));
-
 }
 
 void MainWindow::set_amount_50()
 {
     focus_line_ = nullptr;
     amount_=50;
+    ui->pushButton_3->setChecked(true);
+
 }
 
 void MainWindow::set_amount_100()
 {
     focus_line_ = nullptr;
     amount_=100;
+    ui->pushButton_4->setChecked(true);
+
 }
 
 void MainWindow::set_amount_200()
 {
     focus_line_ = nullptr;
     amount_=200;
+    ui->pushButton_5->setChecked(true);
 }
 
 void MainWindow::set_amount_500()
 {
     focus_line_ = nullptr;
     amount_=500;
+    ui->pushButton_6->setChecked(true);
 }
 
 void MainWindow::set_amount_1000()
 {
     focus_line_ = nullptr;
     amount_=1000;
+    ui->pushButton_7->setChecked(true);
 }
 
 void MainWindow::set_any_amount_withdrawal()
 {
     focus_line_ = ui->lineEdit_amount_withdraw;
     amount_ = parse_amount(ui->lineEdit_amount_withdraw->text());
+    ui->pushButton_8->setChecked(true);
 }
 void MainWindow::on_lineEdit_amount_withdraw_textChanged(const QString & str)
 {
@@ -419,11 +454,15 @@ void MainWindow::show_phone_widget()
 void MainWindow::set_phone_number()
 {
     focus_line_ = ui->lineEdit_phone_number;
+    ui->pushButton_5->setChecked(true);
+    ui->pushButton_6->setChecked(true);
 }
 
 void MainWindow::set_phone_amount()
 {
     focus_line_ = ui->lineEdit_phone_amount;
+    ui->pushButton_7->setChecked(true);
+    ui->pushButton_8->setChecked(true);
 }
 
 void MainWindow::accept_phone_refill()
@@ -503,8 +542,10 @@ void MainWindow::clear_bindings()
     focus_line_ = nullptr;
     foreach(QAbstractButton  *button, ui->buttonGroup->buttons()) {
         disconnect(button, SIGNAL(clicked()), nullptr, nullptr);
-        button->setCheckable(false);
         button->setChecked(false);
+        button->setCheckable(false);
+        button->repaint();
+        button->update();
     }
     disconnect(ui->pushButton_accept, SIGNAL(clicked()), nullptr, nullptr);
     disconnect(ui->pushButton_cancel, SIGNAL(clicked()), nullptr, nullptr);

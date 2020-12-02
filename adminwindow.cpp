@@ -1,3 +1,8 @@
+//
+//  MOOP_ATM
+//
+//  Created by Shchebyna Serhii 10.2020-12.2020.
+//
 #include "AdminWindow.h"
 #include "ui_adminwindow.h"
 #include "QInputDialog"

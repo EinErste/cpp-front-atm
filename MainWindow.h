@@ -1,3 +1,8 @@
+//
+//  MOOP_ATM
+//
+//  Created by Shchebyna Serhii 10.2020-12.2020.
+//
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

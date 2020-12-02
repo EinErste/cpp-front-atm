@@ -1,3 +1,8 @@
+//
+//  MOOP_ATM
+//
+//  Created by Shchebyna Serhii 10.2020-12.2020.
+//
 #ifndef ADMINWINDOW_H
 #define ADMINWINDOW_H
 
