@@ -454,7 +454,7 @@ QLabel#label_7,QLabel#label_8, QLabel#label_9,QLabel#label_10,QLabel#label_11, Q
 font: 24pt &quot;Calibri&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QGridLayout" name="gridLayout_10">
@@ -1204,7 +1204,7 @@ color:white;</string>
               </column>
               <column>
                <property name="text">
-                <string>Destination</string>
+                <string>To/From</string>
                </property>
                <property name="font">
                 <font>

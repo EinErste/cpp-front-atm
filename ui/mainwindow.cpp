@@ -271,7 +271,9 @@ void MainWindow::show_balance_widget()
         ui->tableWidget_history->setItem(index,1, new QTableWidgetItem(QString::fromStdString(time_date[1].substr(0,8))));
         ui->tableWidget_history->setItem(index,2, new QTableWidgetItem(QString::fromStdString(it->comment)));
         ui->tableWidget_history->setItem(index,3, new QTableWidgetItem(QString::fromStdString(it->amount.substr(0, it->amount.find(".")+3)) +"₴"));
-        ui->tableWidget_history->setItem(index,4, new QTableWidgetItem(QString::fromStdString(it->to)));
+        std::string to_from = it->to;
+        if (to_from=="2221009198076721") to_from=std::string("Bank LarinBets");
+        ui->tableWidget_history->setItem(index,4, new QTableWidgetItem(QString::fromStdString(to_from)));
     }
 }
 
