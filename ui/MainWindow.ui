@@ -454,7 +454,7 @@ QLabel#label_7,QLabel#label_8, QLabel#label_9,QLabel#label_10,QLabel#label_11, Q
 font: 24pt &quot;Calibri&quot;;</string>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QGridLayout" name="gridLayout_10">
@@ -693,7 +693,7 @@ color: black;
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>Next page (disabled)</string>
+             <string>Other (coming soon)</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1151,7 +1151,7 @@ color:white;</string>
                <number>5</number>
               </property>
               <attribute name="horizontalHeaderVisible">
-               <bool>true</bool>
+               <bool>false</bool>
               </attribute>
               <attribute name="horizontalHeaderCascadingSectionResizes">
                <bool>true</bool>

@@ -49,7 +49,6 @@ void MainWindow::update_clock()
     QTime time = QTime::currentTime();
     QString time_text = time.toString("hh : mm : ss   ");
     ui->label_time->setText(time_text);
-    ui;
 }
 
 
@@ -210,7 +209,7 @@ void MainWindow::accept_transfer()
     if (amount_!=0){
         QString card = ui->lineEdit_transfer_card->text();
         std::regex card_regex ("[\\d]{16}");
-        if (std::regex_match(card.toStdString(),card_regex)){
+        if (std::regex_match(card.toStdString(),card_regex) && card!=card_name_){
             if (QMessageBox::Yes == QMessageBox::question(this, tr("Transfer"),tr(
                                                               (std::string("Are you sure you want to transfer to card ")+
                                                                ui->lineEdit_transfer_card->text().toStdString() +
@@ -274,8 +273,6 @@ void MainWindow::show_balance_widget()
         ui->tableWidget_history->setItem(index,3, new QTableWidgetItem(QString::fromStdString(it->amount.substr(0, it->amount.find(".")+3)) +"₴"));
         ui->tableWidget_history->setItem(index,4, new QTableWidgetItem(QString::fromStdString(it->to)));
     }
-
-    ui;
 }
 
 

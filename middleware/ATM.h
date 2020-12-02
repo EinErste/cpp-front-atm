@@ -24,7 +24,7 @@ private:
     std::map<std::string, std::string> additionalServices;
     const size_t _id;
     size_t _cash;
-    const Account* _acc = nullptr;
+    const Account* _acc;
     AccountRepository _ar;
 public:
 //    static const std::string STEAM = "steam";

@@ -10,7 +10,7 @@
 const std::string ATM_admin::_login = "log";
 const std::string ATM_admin::_password = "pass";
 
-ATM::ATM(const size_t id, std::string _login, std::string _password): _cash(10000), _id(id), _ar(_login, _password) {}
+ATM::ATM(const size_t id, std::string _login, std::string _password): _id(id), _cash(10000), _acc(nullptr), _ar(_login, _password) {}
 ATM::~ATM()
 {
     exit();
