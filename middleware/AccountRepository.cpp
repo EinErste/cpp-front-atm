@@ -195,7 +195,7 @@ Response<> AccountRepository::withdraw(const Account* acc, const int amount)
     std::string json_date = toJSONtime(date);
     json jBody = {
         {"card_num", "2221009198076721"},
-        {"comment", "Withdraw"},
+        {"comment", "Withdrawal"},
         {"amount", amount},
         {"card_id", acc->_card_id},
         {"transaction_date", json_date}
@@ -234,7 +234,7 @@ Response<> AccountRepository::refill(const Account* acc, const int amount)
     std::string json_date = toJSONtime(date);
     json jBody = {
         {"card_num", "2221009198076721"},
-        {"comment", "Refill"},
+        {"comment", "Deposit"},
         {"amount", amount},
         {"card_id", acc->_card_id},
         {"transaction_date", json_date}

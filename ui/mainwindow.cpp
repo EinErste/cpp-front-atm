@@ -472,7 +472,7 @@ void MainWindow::accept_phone_refill()
                                                            ui->lineEdit_phone_number->text().toStdString() +
                                                            "?").c_str())))
         {
-            auto resp = atm.transfer(ui->lineEdit_phone_number->text().toStdString(), amount_);
+            auto resp = atm.transferPhone(ui->lineEdit_phone_number->text().toStdString(), amount_);
             if (resp.exitCode == 0){
                 QMessageBox::information(this,QString("Information"),QString("Phone was refilled"));
                 ui->lineEdit_phone_number->setText("");
